@@ -1,15 +1,12 @@
+from django.http import HttpResponse
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
-from django.http import JsonResponse
+
+def health_check(request):
+    return HttpResponse("OK", status=200)
 
 urlpatterns = [
+    path('', health_check),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-    path('api/token/', TokenObtainPairView.as_view()),
-    path('api/token/refresh/', TokenRefreshView.as_view()),
-     path('', lambda request: JsonResponse({'status': 'API is running'}))
 ]
